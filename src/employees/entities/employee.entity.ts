@@ -1,1 +1,5 @@
-export class Employee {}
+import { Entity, PrimaryColumn } from "typeorm";
+
+@Entity('employee')
+export class Employee {
+}

@@ -8,9 +8,34 @@ import { AuthController } from './auth/auth.controller';
 import { AdminService } from './admin/admin.service';
 import { EmployeesService } from './employees/employees.service';
 import { AuthService } from './auth/auth.service';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Employee } from './employees/entities/employee.entity';
 
 @Module({
-  imports: [AdminModule, EmployeesModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DATABASE_HOST,
+      port: 5432,
+      username: 'postgres',
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      autoLoadEntities: true,
+      entities: [Employee],
+      synchronize: true,
+    }),
+
+    TypeOrmModule.forFeature([Employee]),
+
+    AdminModule,
+    EmployeesModule,
+    AuthModule,
+  ],
   controllers: [AdminController, EmployeesController, AuthController],
   providers: [AdminService, EmployeesService, AuthService],
 })
