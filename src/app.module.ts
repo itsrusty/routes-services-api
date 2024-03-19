@@ -11,10 +11,13 @@ import { AuthService } from './auth/auth.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Employee } from './employees/entities/employee.entity';
+import { Cachemodule } from './cache/cache.module';
+// import { CacheModule } from '@nestjs/cache-manager';
+// import * as store from "cache-manager-redis-store"
 
 @Module({
   imports: [
-
+    // CacheModule.register({ store: store.redisStore }),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -36,6 +39,7 @@ import { Employee } from './employees/entities/employee.entity';
     AdminModule,
     EmployeesModule,
     AuthModule,
+    Cachemodule,
   ],
   controllers: [AdminController, EmployeesController, AuthController],
   providers: [AdminService, EmployeesService, AuthService],
