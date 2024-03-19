@@ -14,6 +14,7 @@ import { Employee } from './employees/entities/employee.entity';
 
 @Module({
   imports: [
+
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -24,7 +25,7 @@ import { Employee } from './employees/entities/employee.entity';
       port: 5432,
       username: 'postgres',
       password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
+      database: "postgres",
       autoLoadEntities: true,
       entities: [Employee],
       synchronize: true,
